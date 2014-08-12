@@ -28,7 +28,7 @@ server.use(livereload({port: livereloadport}));
 server.use(express.static('./dist'));
 // Because I like HTML5 pushstate .. this redirects everything back to our index.html
 server.all('/*', function(req, res) {
-  res.sendfile('index.html', { root: 'dist' });
+  res.sendFile('index.html', { root: 'dist' });
 });
 
 // Dev task
@@ -43,21 +43,20 @@ gulp.task('dev', ['views', 'lint', 'styles', 'usemin'], function() {
 
 // JSHint task
 gulp.task('lint', function() {
-  gulp.src('app/scripts/**/*.js')
+  gulp.src(['app/scripts/**/*.js', 'app/scripts/*.js'])
   .pipe(jshint())
-  .pipe(jshint.reporter('default'))
-  .pipe(notify({ message: 'Lint task complete' }));
+  .pipe(jshint.reporter('default'));
 });
 
 // Styles task
 gulp.task('styles', function() {
-  gulp.src('app/styles/*.scss')
+  gulp.src('app/styles/scss/*.scss')
   // The onerror handler prevents Gulp from crashing when you make a mistake in your SASS
   .pipe(sass({onError: function(e) { console.log(e); } }))
   // Optionally add autoprefixer
   .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
   // These last two should look familiar now :)
-  .pipe(gulp.dest('dist/css/'))
+  .pipe(gulp.dest('app/styles/'))
   .pipe(refresh())
   .pipe(notify({ message: 'Styles task complete' }));
 });
@@ -84,8 +83,7 @@ gulp.task('usemin', function() {
       html: [minifyHtml({empty: true})],
       js: [uglify(), rev()]
     }))
-    .pipe(gulp.dest('dist/'))
-    .pipe(notify({ message: 'Use min task complete' }));
+    .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('watch', ['lint'], function() {
