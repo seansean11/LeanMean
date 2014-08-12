@@ -1,3 +1,5 @@
+'use strict';
+
 // --------------------------------------------------
 // Packages
 // --------------------------------------------------
@@ -15,9 +17,9 @@ var port = process.env.PORT || 8080;
 mongoose.connect(database.url);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static( __dirname + '/app/views'));
-app.get('*', function(req, res) {
-	res.sendfile('./app/index.html');
+app.use(express.static( __dirname + '/dist/views'));
+app.all('/*', function(req, res) {
+	res.sendfile('./dist/index.html', { root: 'dist' });
 });
 
 // --------------------------------------------------
@@ -50,6 +52,6 @@ app.use('/api', router);
 // --------------------------------------------------
 // Start the show
 // --------------------------------------------------
-var server = app.listen(port, function() {
+app.listen(port, function() {
 	console.log('listening on port ' + port );
 });

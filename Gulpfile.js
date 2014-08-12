@@ -15,26 +15,12 @@ var gulp = require('gulp'),
 
 // Modules for webserver and livereload
 var refresh = require('gulp-livereload'),
-    express = require('express'),
     livereload = require('connect-livereload'),
-    livereloadport = 35729,
-    serverport = 3000;
+    livereloadport = 35729;
 
-// Set up an express server (not starting it yet)
-var server = express();
-// Add live reload
-server.use(livereload({port: livereloadport}));
-// Use our 'dist' folder as rootfolder
-server.use(express.static('./dist'));
-// Because I like HTML5 pushstate .. this redirects everything back to our index.html
-server.all('/*', function(req, res) {
-  res.sendFile('index.html', { root: 'dist' });
-});
-
+livereload({port: livereloadport});
 // Dev task
 gulp.task('dev', ['views', 'lint', 'styles', 'usemin'], function() {
-  // Start webserver
-  server.listen(serverport);
   // Start live reload
   refresh.listen(livereloadport);
   // Run the watch task, to keep taps on changes
