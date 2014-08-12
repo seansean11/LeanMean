@@ -87,16 +87,13 @@ gulp.task('usemin', function() {
 });
 
 gulp.task('watch', ['lint'], function() {
-  // Watch our scripts, and when they change run lint and browserify
-  gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'],[
-    'lint'
-  ]);
   // Watch our sass files
   gulp.watch(['app/styles/**/*.scss'], [
     'styles'
   ]);
 
   gulp.watch(['app/**/*.html'], [
-    'views'
+    'views',
+    'usemin'
   ]);
 });
