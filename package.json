@@ -1,6 +1,6 @@
 {
   "name": "package",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "A simplified MEAN stack starter app.",
   "main": "app.js",
   "repository": {
@@ -11,14 +11,15 @@
     "angular": "~1.2.19",
     "body-parser": "~1.6.2",
     "express": "~4.8.2",
+    "gulp": "~3.8.7",
     "mongodb": "~1.4.8",
     "mongoose": "~3.8.14",
-    "morgan": "~1.2.2",
-    "gulp": "~3.8.7"
+    "morgan": "~1.2.2"
   },
   "devDependencies": {
     "browserify": "^5.9.3",
     "connect-livereload": "^0.4.0",
+    "gulp-notify": "^1.4.2",
     "gulp-autoprefixer": "0.0.8",
     "gulp-browserify": "^0.5.0",
     "gulp-clean": "^0.3.1",

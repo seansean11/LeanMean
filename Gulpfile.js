@@ -2,9 +2,8 @@
 
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
+    notify = require('gulp-notify'),
     jshint = require('gulp-jshint'),
-    browserify = require('gulp-browserify'),
-    concat = require('gulp-concat'),
     clean = require('gulp-clean'),
     usemin = require('gulp-usemin'),
     uglify = require('gulp-uglify'),
@@ -15,13 +14,11 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer');
 
 // Modules for webserver and livereload
-var embedlr = require('gulp-embedlr'),
-    refresh = require('gulp-livereload'),
-    lrserver = require('tiny-lr')(),
+var refresh = require('gulp-livereload'),
     express = require('express'),
     livereload = require('connect-livereload'),
     livereloadport = 35729,
-    serverport = 8080;
+    serverport = 3000;
 
 // Set up an express server (not starting it yet)
 var server = express();
@@ -35,20 +32,21 @@ server.all('/*', function(req, res) {
 });
 
 // Dev task
-gulp.task('dev', ['views', 'styles', 'lint', 'browserify'], function() {
+gulp.task('dev', ['views', 'lint', 'styles', 'usemin'], function() {
   // Start webserver
   server.listen(serverport);
   // Start live reload
-  lrserver.listen(livereloadport);
+  refresh.listen(livereloadport);
   // Run the watch task, to keep taps on changes
   gulp.run('watch');
 });
 
 // JSHint task
 gulp.task('lint', function() {
-  gulp.src('app/scripts/*.js')
+  gulp.src('app/scripts/**/*.js')
   .pipe(jshint())
-  .pipe(jshint.reporter('default'));
+  .pipe(jshint.reporter('default'))
+  .pipe(notify({ message: 'Lint task complete' }));
 });
 
 // Styles task
@@ -60,21 +58,8 @@ gulp.task('styles', function() {
   .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
   // These last two should look familiar now :)
   .pipe(gulp.dest('dist/css/'))
-  .pipe(refresh(lrserver));
-});
-
-// Browserify task
-gulp.task('browserify', function() {
-  // Single point of entry (make sure not to src ALL your files, browserify will figure it out)
-  gulp.src(['app/scripts/main.js'])
-  .pipe(browserify({
-    insertGlobals: true,
-    debug: true
-  }))
-  // Bundle to a single file
-  .pipe(concat('bundle.js'))
-  // Output it to our dist folder
-  .pipe(gulp.dest('dist/js'));
+  .pipe(refresh())
+  .pipe(notify({ message: 'Styles task complete' }));
 });
 
 // Views task
@@ -82,31 +67,31 @@ gulp.task('views', function() {
   // Get our index.html
   gulp.src('app/index.html')
   // And put it in the dist folder
-  .pipe(gulp.dest('dist/'))
-  .pipe(refresh(lrserver));
+  .pipe(refresh());
 
   // Any other view files from app/views
   gulp.src('app/views/**/*')
   // Will be put in the dist/views folder
   .pipe(gulp.dest('dist/views/'))
-  .pipe(refresh(lrserver));
+  .pipe(refresh())
+  .pipe(notify({ message: 'Views task complete' }));
 });
 
 gulp.task('usemin', function() {
-  gulp.src('./*.html')
+  gulp.src('app/index.html')
     .pipe(usemin({
       css: [minifyCss(), 'concat'],
       html: [minifyHtml({empty: true})],
       js: [uglify(), rev()]
     }))
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('dist/'))
+    .pipe(notify({ message: 'Use min task complete' }));
 });
 
 gulp.task('watch', ['lint'], function() {
   // Watch our scripts, and when they change run lint and browserify
   gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'],[
-    'lint',
-    'browserify'
+    'lint'
   ]);
   // Watch our sass files
   gulp.watch(['app/styles/**/*.scss'], [

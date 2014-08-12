@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name deletemeApp
+ * @name leanMEAN
  * @description
- * # deletemeApp
+ * # leanMEAN
  *
  * Main module of the application.
  */
 angular
-  .module('deletemeApp', [
+  .module('leanMEAN', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
