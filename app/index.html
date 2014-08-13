@@ -16,17 +16,15 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="#/about">About</a></li>
-          <li><a ng-href="#">Contact</a></li>
+      <header>
+        <ul>
+          <li class="active"><a ng-href="/">Home</a></li>
+          <li><a ng-href="/about">About</a></li>
+          <li><a ng-href="/contact">Contact</a></li>
         </ul>
-        <h1 class="text-muted">hey</h1>
-      </div>
-      <div ng-view=""></div>
-    </div>
+        <h1>leanMean</h1>
+      </header>
+      <main ng-view=""></main>
 
     <!-- build:js scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -52,6 +50,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/contact.js"></script>
     <!-- endbuild -->
 </body>
 </html>

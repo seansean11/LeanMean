@@ -84,7 +84,7 @@ gulp.task('images', function() {
 gulp.task('watch', ['lint'], function() {
   // Watch our sass files
   gulp.watch(['app/styles/**/*.scss'], ['styles', 'usemin']);
-  gulp.watch(['app/views/**/*.html'], ['views', 'usemin']);
+  gulp.watch(['app/**/*.html'], ['views', 'usemin']);
   gulp.watch(['app/scripts/**/*.js'], ['usemin']);
   gulp.watch(['app/images/**/*'], ['images']);
 });
