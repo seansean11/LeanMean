@@ -17,8 +17,8 @@ var port = process.env.PORT || 8080;
 mongoose.connect(database.url);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static( __dirname + 'dist/views'));
-app.all('/*', function(req, res) {
+app.use(express.static( __dirname + '/dist/'));
+app.all('/', function(req, res) {
 	res.sendfile('./index.html', { root: 'dist' });
 });
 

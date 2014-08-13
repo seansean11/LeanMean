@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name leanMEAN
+ * @name app
  * @description
- * # leanMEAN
+ * # app
  *
  * Main module of the application.
  */
 angular
-  .module('leanMEAN', [
+  .module('app', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

@@ -5,10 +5,13 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     jshint = require('gulp-jshint'),
     clean = require('gulp-clean'),
+    imagemin = require('gulp-imagemin'),
+    cache = require('gulp-cache'),
     usemin = require('gulp-usemin'),
     uglify = require('gulp-uglify'),
     minifyHtml = require('gulp-minify-html'),
     minifyCss = require('gulp-minify-css'),
+    ngAnnotate = require('gulp-ng-annotate'),
     rev = require('gulp-rev'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer');
@@ -20,7 +23,7 @@ var refresh = require('gulp-livereload'),
 
 livereload({port: livereloadport});
 // Dev task
-gulp.task('dev', ['views', 'lint', 'styles', 'usemin'], function() {
+gulp.task('dev', ['views', 'lint', 'styles', 'images', 'usemin'], function() {
   // Start live reload
   refresh.listen(livereloadport);
   // Run the watch task, to keep taps on changes
@@ -54,9 +57,7 @@ gulp.task('views', function() {
   // And put it in the dist folder
   .pipe(refresh());
 
-  // Any other view files from app/views
   gulp.src('app/views/**/*')
-  // Will be put in the dist/views folder
   .pipe(gulp.dest('dist/views/'))
   .pipe(refresh())
   .pipe(notify({ message: 'Views task complete' }));
@@ -67,19 +68,23 @@ gulp.task('usemin', function() {
     .pipe(usemin({
       css: [minifyCss(), 'concat'],
       html: [minifyHtml({empty: true})],
-      js: [uglify(), rev()]
+      js: [ngAnnotate(), uglify(), rev()]
     }))
     .pipe(gulp.dest('dist/'));
 });
 
+// Images
+gulp.task('images', function() {
+  return gulp.src('app/images/**/*')
+    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+    .pipe(gulp.dest('dist/images'))
+    .pipe(notify({ message: 'Images task complete' }));
+});
+
 gulp.task('watch', ['lint'], function() {
   // Watch our sass files
-  gulp.watch(['app/styles/**/*.scss'], [
-    'styles'
-  ]);
-
-  gulp.watch(['app/**/*.html'], [
-    'views',
-    'usemin'
-  ]);
+  gulp.watch(['app/styles/**/*.scss'], ['styles', 'usemin']);
+  gulp.watch(['app/views/**/*.html'], ['views', 'usemin']);
+  gulp.watch(['app/scripts/**/*.js'], ['usemin']);
+  gulp.watch(['app/images/**/*'], ['images']);
 });
