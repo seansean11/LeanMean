@@ -1,0 +1,6 @@
+.edit-todo.is-editing button {
+  display: none; }
+.edit-todo.is-editing input {
+  display: block; }
+.edit-todo input {
+  display: none; }

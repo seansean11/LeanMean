@@ -1,0 +1,15 @@
+.edit-todo {
+	&.is-editing {
+		button {
+			display: none;
+		}
+
+		input {
+			display: block;
+		}
+	}
+
+	input {
+		display: none;
+	}
+}

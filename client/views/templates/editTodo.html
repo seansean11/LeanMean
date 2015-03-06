@@ -1,0 +1,2 @@
+<button class="btn btn-primary" ng-show="!isEditing" ng-click="activateEdit()">edit</button>
+<input type="text" ng-show="isEditing" ng-model="todo.todo" ng-enter="updateTodo(todo)">

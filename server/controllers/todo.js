@@ -17,7 +17,8 @@ var ToDoMethods = {
 		todo.save(function(err) {
 			if(err)
 				res.send(err);
-			res.json({ message: 'Added new todo!', data: todo });
+	
+			res.json(todo);
 		});
 	},
 	put : function(req,res) {
@@ -29,6 +30,7 @@ var ToDoMethods = {
 			todo.save(function(err) {
 				if(err)
 					res.send(err);
+				
 				res.json(todo);
 			});
 		});
