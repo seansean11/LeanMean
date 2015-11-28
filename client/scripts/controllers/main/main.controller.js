@@ -21,10 +21,7 @@
     };
 
     // GET all todos
-    Todo.query().$promise.then(function(data) {
-      vm.todos = data;
-      console.log(vm.todos);
-    });
+    vm.todos = Todo.query();
 
     // DELETE todo
     vm.deleteTodo = function(todo) {
@@ -48,7 +45,5 @@
         vm.isEditing = null;
       }, handleError);
     };
-
-
   }
 })();

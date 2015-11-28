@@ -17,7 +17,7 @@
 	<ul class="list-todos row">
 		<li class="col-md-6" ng-repeat="todo in vm.todos">
 			<div class="card">
-				<header class="card-header">
+				<header class="card-header card-info card-inverse">
 					<time datetime="{{ todo.at }}">{{ todo.at | date: 'medium' }}</time>
 					<div class="card-icons">
 						<span class="fa fa-cog" ng-click="vm.editTodo(todo)"></span>
