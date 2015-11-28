@@ -5,27 +5,25 @@
     <title>leanMean</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="styles/main.css">
     <base href="/">
   </head>
   <body ng-app="leanMean">
 
     <!-- Add your site or application content here -->
-      <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-          <a class="navbar-brand" ui-sref="main">leanMean</a>
-          <ul class="nav navbar-nav">
-            <li class="active"><a ui-sref="main">Home</a></li>
-          </ul>
-        </div>
-      </nav>
-      <main ui-view="">
-      </main>
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <a class="navbar-brand" ui-sref="main">leanMean</a>
+      </div>
+    </nav>
+
+    <main ui-view="">
+    </main>
 
     <!-- build:js scripts/vendor.js -->
     <script src="/node_modules/angular/angular.js"></script>
     <script src="/node_modules/angular-resource/angular-resource.js"></script>
-    <script src="/node_modules/angular-animate/angular-animate.js"></script>
     <script src="/node_modules/angular-ui-router/build/angular-ui-router.js"></script>
     <!-- endbuild -->
 

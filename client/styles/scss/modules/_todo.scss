@@ -1,35 +1,35 @@
-.edit-todo {
-	&.is-editing {
-		button {
-			display: none;
-		}
-
-		input {
-			display: block;
-		}
-	}
-
-	input {
-		display: none;
-	}
+.card-inverse {
+    color: #fff;
 }
 
 .list-todos {
-	@extend %menu-zero;
-	display: flex;
-	flex-wrap: wrap;
+    list-style: none;
+    padding-left: 0;
 
-	.panel-heading {
-		time {
-			display: inline-block;
-		}
-	}
+    .card {
+        margin-bottom: 1.5em;
+    }
+}
 
-	.icons {
-		float: right;
+.edit-todo {
+    display: none;
 
-		& > * {
-			font-size: 20px;
-		}
-	}
+    &.is-editing {
+        display: table;
+    }
+
+    time {
+        display: inline-block;
+    }
+}
+
+.card-icons {
+    float: right;
+
+    & > * {
+        font-size: 20px;
+        margin-left: .4em;
+        cursor: pointer;
+        display: inline-block;
+    }
 }

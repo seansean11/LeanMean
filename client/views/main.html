@@ -1,33 +1,39 @@
 <div class="jumbotron">
 	<div class="container">
-		<form ng-submit="vm.addTodo()">
-			<h1>Add Todo</h1>
-			<span class="input-group col-lg-4">
-				<input class="form-control" ng-model="vm.newTodo.todo" type="text">
-				<span class="input-group-btn">
-					<button class="btn btn-primary" type="submit">Submit</button>
+		<form class="row" ng-submit="vm.addTodo()">
+			<div class="col-md-8">
+				<h1>Add Todo</h1>
+				<span class="input-group">
+					<input class="form-control" ng-model="vm.newTodo.todo" type="text">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="submit">Submit</button>
+					</span>
 				</span>
-			</span>
+			</div>
 		</form>
 	</div>
 </div>
 <div class="container">
-	<ul class="list-todos">
+	<ul class="list-todos row">
 		<li class="col-md-6" ng-repeat="todo in vm.todos">
-			<div class="panel panel-primary">
-				<header class="panel-heading">
+			<div class="card">
+				<header class="card-header">
 					<time datetime="{{ todo.at }}">{{ todo.at | date: 'medium' }}</time>
-					<div class="icons">
-						<i class="glyphicon glyphicon-cog" ng-click="editTodo(todo)"></i>
-						<i class="glyphicon glyphicon-remove" ng-click="deleteTodo(todo, $index)"></i>
+					<div class="card-icons">
+						<span class="fa fa-cog" ng-click="vm.editTodo(todo)"></span>
+						<span class="fa fa-remove" ng-click="vm.deleteTodo(todo, $index)"></span>
 					</div>
 				</header>
-				<div class="panel-body">
-				<h3>{{ todo.todo }}</h3>
-					<span class="edit-todo" ng-class="{'is-editing': todo == isEditing}">
-
-						<input type="text" ng-model="todo.todo" ng-enter="updateTodo(todo)">
-					</span>
+				<div class="card-block">
+					<h3>{{ todo.todo }}</h3>
+					<form class="edit-todo input-group"
+						  ng-submit="vm.updateTodo(todo)"
+						  ng-class="{'is-editing': todo == vm.isEditing}">
+						<input type="text" class="form-control" type="text" ng-model="todo.todo">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-primary" type="submit">Save</button>
+						</span>
+					</form>
 				</div>
 			</div>
 		</li>
