@@ -14,50 +14,54 @@ var gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate'),
     rev = require('gulp-rev'),
     sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer');
+    autoprefixer = require('gulp-autoprefixer'),
+    browserSync = require('browser-sync');
 
-// Modules for webserver and livereload
-var refresh = require('gulp-livereload'),
-    livereload = require('connect-livereload'),
-    livereloadport = 35729;
-livereload({port: livereloadport});
-
-// The main, all-inclusive task
-gulp.task('dev', ['views', 'lint', 'styles', 'images', 'usemin', 'fonts'], function() {
-  refresh.listen(livereloadport);
-  gulp.run('watch');
+// Serve dev environment
+gulp.task('serve', function() {
+  browserSync({
+    files: [
+      'client/index.html',
+      'client/scripts/**/*.js',
+      'client/views/**/*.html',
+      'client/styles/main.css',
+      'client/images/*'
+    ],
+    proxy: 'localhost:8080'
+  });
 });
+
+// Build production app
+gulp.task('build', ['views', 'lint', 'styles', 'images', 'usemin']);
+
+// Set up Karma-Jasmine tests
+gulp.task('test');
 
 // JSHint task
 gulp.task('lint', function() {
-  gulp.src(['client/scripts/**/*.js', 'client/scripts/*.js'])
-  .pipe(jshint())
-  .pipe(jshint.reporter('default'));
+  gulp.src('client/scripts/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 // Styles task
 gulp.task('styles', function() {
   gulp.src('client/styles/scss/*.scss')
-  .pipe(sass({onError: function(e) { console.log(e); } }))
-  .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
-  .pipe(gulp.dest('client/styles/'))
-  .pipe(refresh())
-  .pipe(notify({ message: 'Styles task complete' }));
+    .pipe(sass({onError: function(e) { console.log(e); } }))
+    .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 8'))
+    .pipe(gulp.dest('dist/styles/'))
+    .pipe(refresh())
+    .pipe(notify({ message: 'Styles task complete' }));
 });
 
-// Views task
+// Minify views
 gulp.task('views', function() {
-  // Index file
-  gulp.src('client/index.html')
-  .pipe(refresh());
-  // View files
   gulp.src('client/views/**/*')
   .pipe(gulp.dest('dist/views/'))
-  .pipe(refresh())
   .pipe(notify({ message: 'Views task complete' }));
 });
 
-// Usemin task
+// Minify assets
 gulp.task('usemin', function() {
   gulp.src('client/index.html')
     .pipe(usemin({
@@ -68,7 +72,7 @@ gulp.task('usemin', function() {
     .pipe(gulp.dest('dist/'));
 });
 
-// Images task
+// Minify images
 gulp.task('images', function() {
   return gulp.src('client/images/**/*')
     .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
@@ -76,17 +80,9 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
-// Copy
-gulp.task('fonts', function(){
-  gulp.src('client/fonts/**')
-    .pipe(gulp.dest('dist/fonts'));
-});
-
+// Watch for SASS changes
 gulp.task('watch', ['lint'], function() {
-  // Watch our sass files
-  gulp.watch(['client/styles/**/*.scss'], ['styles', 'usemin']);
-  gulp.watch(['client/**/*.html'], ['views', 'usemin']);
-  gulp.watch(['client/scripts/**/*.js'], ['usemin']);
-  gulp.watch(['client/images/**/*'], ['images']);
-  gulp.watch(['client/fonts/**/*'], ['fonts']);
+  gulp.watch(['client/styles/**/*.scss'], ['styles'], function(){
+    gulp.run('usemin');
+  });
 });

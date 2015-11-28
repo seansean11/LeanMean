@@ -1,40 +1,29 @@
 'use strict';
 
 /**
- * @ngdoc overview
- * @name app
- * @description
- * # app
- *
  * Main module of the application.
  */
 angular
-  .module('app', [
+  .module('leanMean', [
     'ngAnimate',
-    'ngCookies',
     'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
+    'ui.router'
   ])
-  .config(function ($routeProvider, $locationProvider) {
-
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+  .config(function ($urlRouterProvider, $locationProvider, $stateProvider) {
+    $stateProvider
+      .state('main', {
+        url: '/',
+        templateUrl:'views/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'vm'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .when('/contact', {
-        templateUrl: 'views/contact.html',
-        controller: 'ContactCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
+      .state('login', {
+        url: '/login',
+        templateUrl:'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'vm'
       });
 
-      $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/');
   });

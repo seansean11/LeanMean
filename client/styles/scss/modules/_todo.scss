@@ -13,3 +13,23 @@
 		display: none;
 	}
 }
+
+.list-todos {
+	@extend %menu-zero;
+	display: flex;
+	flex-wrap: wrap;
+
+	.panel-heading {
+		time {
+			display: inline-block;
+		}
+	}
+
+	.icons {
+		float: right;
+
+		& > * {
+			font-size: 20px;
+		}
+	}
+}

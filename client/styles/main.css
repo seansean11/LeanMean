@@ -1,6 +1,18 @@
+.list-todos {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
 .edit-todo.is-editing button {
   display: none; }
 .edit-todo.is-editing input {
   display: block; }
 .edit-todo input {
   display: none; }
+
+.list-todos .panel-heading time {
+  display: inline-block; }
+.list-todos .icons {
+  float: right; }
+  .list-todos .icons > * {
+    font-size: 20px; }

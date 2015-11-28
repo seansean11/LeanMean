@@ -1,9 +1,9 @@
 <div class="jumbotron">
 	<div class="container">
-		<form ng-submit="addTodo()">
+		<form ng-submit="vm.addTodo()">
 			<h1>Add Todo</h1>
 			<span class="input-group col-lg-4">
-				<input class="form-control" ng-model="newTodo.todo" type="text">
+				<input class="form-control" ng-model="vm.newTodo.todo" type="text">
 				<span class="input-group-btn">
 					<button class="btn btn-primary" type="submit">Submit</button>
 				</span>
@@ -12,15 +12,24 @@
 	</div>
 </div>
 <div class="container">
-	<ul>
-		<li ng-repeat="todo in todos">
-			<h2>{{ todo.todo }}</h2>
-			<date>{{ todo.at }}</date>
-			<i class="glyphicon glyphicon-remove" ng-click="deleteTodo(todo, $index)"></i>
-			<span class="edit-todo" ng-class="{'is-editing': todo == isEditing}">
-				<button class="btn btn-primary" ng-click="editTodo(todo)">edit</button>
-				<input type="text" ng-model="todo.todo" ng-enter="updateTodo(todo)">
-			</span>
+	<ul class="list-todos">
+		<li class="col-md-6" ng-repeat="todo in vm.todos">
+			<div class="panel panel-primary">
+				<header class="panel-heading">
+					<time datetime="{{ todo.at }}">{{ todo.at | date: 'medium' }}</time>
+					<div class="icons">
+						<i class="glyphicon glyphicon-cog" ng-click="editTodo(todo)"></i>
+						<i class="glyphicon glyphicon-remove" ng-click="deleteTodo(todo, $index)"></i>
+					</div>
+				</header>
+				<div class="panel-body">
+				<h3>{{ todo.todo }}</h3>
+					<span class="edit-todo" ng-class="{'is-editing': todo == isEditing}">
+
+						<input type="text" ng-model="todo.todo" ng-enter="updateTodo(todo)">
+					</span>
+				</div>
+			</div>
 		</li>
 	</ul>
 </div>

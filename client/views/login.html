@@ -1,0 +1,12 @@
+<form class="login-form" name="loginForm" novalidate ng-submit="login()">
+    <div class="alert" ng-show="wrongCredentials">Messed up</div>
+    <div class="form-group" ng-class="{'has-error': loginForm.username.$invalid && loginForm.username.$dirty, 'has-success' : loginForm.username.$valid && loginForm.username.$dirty }">
+      <label for="username" class="control-label">Username</label>
+      <input type="text" name="username" ng-model="user.username" required cu-focus>
+    </div>
+    <div class="form-group" ng-class="{'has-error': loginForm.password.$invalid && loginForm.password.$dirty, 'has-success' : loginForm.password.$valid && loginForm.password.$dirty }">
+      <label for="password" class="control-label">Password</label>
+      <input type="password" name="password" ng-model="user.password" required cu-focus>
+    </div>
+    <button type="submit" ng-disabled="loginForm.$invalid">Log In</button>
+</form>

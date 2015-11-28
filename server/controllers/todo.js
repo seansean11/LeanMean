@@ -17,7 +17,7 @@ var ToDoMethods = {
 		todo.save(function(err) {
 			if(err)
 				res.send(err);
-	
+
 			res.json(todo);
 		});
 	},
@@ -30,7 +30,7 @@ var ToDoMethods = {
 			todo.save(function(err) {
 				if(err)
 					res.send(err);
-				
+
 				res.json(todo);
 			});
 		});
