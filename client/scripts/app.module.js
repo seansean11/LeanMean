@@ -5,10 +5,9 @@
  */
 angular
   .module('leanMean', [
-    'ngAnimate',
-    'ngResource',
-    'ui.router'
-  ])
+		'leanMean.core',
+		'leanMean.components'
+  ]);
   .config(function ($urlRouterProvider, $locationProvider, $stateProvider) {
     $stateProvider
       .state('main', {
