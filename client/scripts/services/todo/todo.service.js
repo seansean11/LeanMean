@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('leanMean')
+    .module('leanMean.services.todo')
   	.factory('Todo', Todo);
 
   Todo.$inject = ['$resource'];
@@ -14,4 +14,5 @@
       }
     });
   }
+
 })();

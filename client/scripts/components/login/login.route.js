@@ -14,6 +14,7 @@
         templateUrl:'views/login.html',
         controller: 'LoginCtrl',
         controllerAs: 'vm'
-      });:w
+      });
 	}
+
 })();

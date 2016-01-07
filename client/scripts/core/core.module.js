@@ -7,5 +7,6 @@
 			'ngAnimate',
 			'ngResource'
 		]);
+
 })();
 

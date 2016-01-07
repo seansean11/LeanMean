@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('leanMean')
+    .module('leanMean.components.main')
     .controller('MainCtrl', MainCtrl);
 
   MainCtrl.$inject = ['$scope', 'Todo'];
@@ -46,4 +46,5 @@
       }, handleError);
     };
   }
+
 })();
