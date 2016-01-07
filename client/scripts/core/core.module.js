@@ -4,7 +4,8 @@
 	angular
 		.module('leanMean.core', [
 			'ui.router',
-			'ngAnimate'
+			'ngAnimate',
+			'ngResource'
 		]);
 })();
 

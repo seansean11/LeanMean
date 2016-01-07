@@ -5,10 +5,9 @@
     .module('leanMean')
   	.factory('Todo', Todo);
 
-  Todo.$inject = ['$http'];
+  Todo.$inject = ['$resource'];
 
-  function Todo($http){
-
+  function Todo($resource){
     return $resource('/api/todos/:id', { id: '@_id' }, {
       update: {
         method: 'PUT'
