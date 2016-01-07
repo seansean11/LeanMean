@@ -16,12 +16,7 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'vm'
       })
-      .state('login', {
-        url: '/login',
-        templateUrl:'views/login.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'vm'
-      });
+      
 
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
