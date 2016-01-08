@@ -22,7 +22,7 @@
 
     // GET all todos
     vm.todos = Todo.query();
-
+		console.log(vm.todos);
     // DELETE todo
     vm.deleteTodo = function(todo) {
       todo.$delete(function() {

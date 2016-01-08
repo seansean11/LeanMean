@@ -1,6 +1,7 @@
 describe('Todo Service', function() {
   var Todo,
       $httpBackend,
+			todo
 
   beforeEach(module('leanMean.services.todo'));
   beforeEach(inject(function(_Todo_, _$httpBackend_) {
@@ -21,41 +22,43 @@ describe('Todo Service', function() {
   it('should create a todo', function() {
 		var expectedData = {"todo":"This is a todo!","user_id":"12"}; 
 		
-		$httpBackend.expectPOST('/api/todos', expectedData)
+		$httpBackend.expect('POST', '/api/todos', expectedData)
 			.respond(201);
 
-		var todo = new Todo({
+		var newTodo = new Todo({
 			todo: "This is a todo!", 
 			user_id: "12"
 		});
 
-		todo.$save();
+		newTodo.$save();
 
 		expect($httpBackend.flush).not.toThrow();
 	});
 	
 	it('should get todos', function() {
-		$httpBackend.expectGET('/api/todos')
-			.respond('200');
+		$httpBackend.expect('GET', '/api/todos')
+			.respond(200);
 
-		Todo.get();
+		Todo.query();
 
 		expect($httpBackend.flush).not.toThrow();
 	});
 
   it('should update a todo', function() {
 		$httpBackend.expectPUT('/api/todos/12')
-			.respond('200');
+			.respond(200);
 
-		Todo.$update({id: '12'});
+		todo.$update({id: '12'});
 
 		expect($httpBackend.flush).not.toThrow();
   });
 
   it('should delete a todo', function() {
 		$httpBackend.expectDELETE('/api/todos/12')
-			.respond('200');
+			.respond(200);
 
-		Todo
+		todo.$delete({id: '12'});
+
+		expect($httpBackend.flush).not.toThrow();
   });
 });
