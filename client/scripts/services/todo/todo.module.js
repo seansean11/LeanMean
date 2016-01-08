@@ -2,6 +2,8 @@
 	'use strict';
 
 	angular
-		.module('leanMean.services.todo', []);
+		.module('leanMean.services.todo', [
+				'ngResource'
+		]);
 
 })();
