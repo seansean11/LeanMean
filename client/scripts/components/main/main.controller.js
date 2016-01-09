@@ -15,14 +15,17 @@
 
     vm.newTodo = new Todo();
     vm.isEditing = null;
+		vm.todos = [];
 
     vm.editTodo = function(todo) {
       vm.isEditing = todo;
     };
 
     // GET all todos
-    vm.todos = Todo.query();
-		console.log(vm.todos);
+		Todo.query(function(data) {
+			vm.todos = data;		
+		}, handleError);
+
     // DELETE todo
     vm.deleteTodo = function(todo) {
       todo.$delete(function() {

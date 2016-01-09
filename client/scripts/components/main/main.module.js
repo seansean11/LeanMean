@@ -3,7 +3,7 @@
 
 	angular
 		.module('leanMean.components.main', [
-				'$stateProvider'
+				'ui.router'
 		]);
 
 })();
