@@ -5,12 +5,12 @@
     .module('leanMean.components.main')
     .controller('MainCtrl', MainCtrl);
 
-  MainCtrl.$inject = ['$scope', 'Todo'];
+  MainCtrl.$inject = ['$exceptionHandler', '$scope', 'Todo'];
 
-  function MainCtrl($scope, Todo) {
+  function MainCtrl($exceptionHandler, $scope, Todo) {
     var vm = this;
     var handleError = function(e) {
-      console.log(e);
+			$exceptionHandler(e.data);
     }
 
     vm.newTodo = new Todo();
